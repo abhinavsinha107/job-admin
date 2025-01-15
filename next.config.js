@@ -9,7 +9,7 @@ module.exports = {
   },
 
   env: {
-    BASE_URL: process.env.ORGADO_SERVER_URL,
+    BASE_URL: process.env.API_BASE_URL,
     IMGBB_URL: process.env.ORGADO_IMGBB_KEY,
     EMAIL_SERVICE_ID: process.env.EMAIL_SERVICE_KEY,
     EMAIL_PUBLIC_KEY: process.env.EMAIL_PUBLIC_KEY,

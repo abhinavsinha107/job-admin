@@ -22,8 +22,8 @@ export default function RootLayout({ children }: childrenType) {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-          <title>Orgado Admin</title>
-          <link rel="icon" href="/favicon.png" />
+          <title>ITI Career-Admin</title>
+          <link rel="icon" href="/favicon.ico" />
           <link
             href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap"
             rel="stylesheet"

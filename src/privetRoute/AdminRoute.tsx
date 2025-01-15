@@ -5,7 +5,7 @@ import Preloader from "@/sheardComponent/Preloader/Preloader";
 import { childrenType } from "@/interFace/interFace";
 import useGlobalContext from "@/hooks/use-context";
 const AdminRoute: React.FC<childrenType> = ({ children }) => {
-  const { user, loading,logout } = useGlobalContext();
+  const { user, loading, logout } = useGlobalContext();
   const router = useRouter();
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -31,13 +31,11 @@ const AdminRoute: React.FC<childrenType> = ({ children }) => {
   //   return <>{children}</>;
   // }
 
-
   router.replace("/login");
-    if(logout){
-      logout()
-    }
+  if (logout) {
+    logout();
+  }
   return null;
 };
 
 export default AdminRoute;
-

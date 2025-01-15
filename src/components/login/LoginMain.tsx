@@ -25,7 +25,7 @@ const LoginMain = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     setLoading(false);
     const email = data.email;
@@ -36,34 +36,18 @@ const LoginMain = () => {
     };
 
     axios
-      .post(`${process.env.BASE_URL}user/login`, userInfo)
+      .post(`${process.env.BASE_URL}auth`, userInfo)
       .then((res) => {
-        switch (res.data.message) {
-          case "Login Successful":
-            router.push("/");
-            const token = res.data.data;
-            localStorage.setItem("accessToken", token);
-            setLoading(false);
-
-            break;
-          case "password not Match":
-            setLoading(false);
-            setloginError("Password Not Match");
-            break;
-          case "user not Valid":
-            setLoading(false);
-            setloginError("user not Valid");
-            break;
-          case "custome error":
-            setLoading(false);
-            setloginError("Inter Valid Into");
-            break;
-          default:
-            setLoading(false);
-            break;
-        }
+        const token = res.data.data.accessToken;
+        console.log("token", token);
+        localStorage.setItem("accessToken", token);
+        setLoading(false);
+        router.push("/");
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setLoading(false);
+        setloginError(error.response.data.message);
+      });
   };
 
   if (loading) {
@@ -74,22 +58,20 @@ const LoginMain = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="cashier-login-area flex justify-center items-center w-full h-full"
+        className="flex items-center justify-center w-full h-full cashier-login-area"
       >
         <div className="cashier-login-wrapper">
-          <div className="cashier-login-logo text-center mb-12">
+          <div className="mb-12 text-center cashier-login-logo">
             <Image src={logo} alt="logo not found" />
           </div>
 
-          <div className="cashier-select-field mb-5">
+          <div className="mb-5 cashier-select-field">
             <div className="cashier-input-field-style">
-              <div className="single-input-field w-full">
+              <div className="w-full single-input-field">
                 <input
                   type="email"
                   placeholder="Email"
-                  defaultValue="orgado@example.com"
                   {...register("email", {
-                    
                     pattern: {
                       value:
                         /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i,
@@ -97,29 +79,33 @@ const LoginMain = () => {
                     },
                   })}
                 />
-                {errors.email && <span className="error-message">{errors.email.message}</span>}
+                {errors.email && (
+                  <span className="error-message">{errors.email.message}</span>
+                )}
               </div>
               <span className="input-icon">
                 <i className="fa-light fa-envelope"></i>
               </span>
             </div>
           </div>
-          <div className="cashier-select-field mb-5">
+          <div className="mb-5 cashier-select-field">
             <div className="cashier-input-field-style">
-              <div className="single-input-field w-full">
+              <div className="w-full single-input-field">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  defaultValue="123456"
                   {...register("password", {
-                    
                     minLength: {
                       value: 6,
                       message: "Password must be at least 6 characters long",
                     },
                   })}
                 />
-                {errors.password && <span className="error-message">{errors.password.message}</span>}
+                {errors.password && (
+                  <span className="error-message">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
               <span className="input-icon">
                 <button
@@ -147,7 +133,7 @@ const LoginMain = () => {
             </div>
           </div>
           <div className="cashier-login-footer">
-            <div className="cashier-login-footer-account text-center">
+            <div className="text-center cashier-login-footer-account">
               <span className="text-[16px] inline-block text-bodyText">
                 New account?{" "}
                 <Link href="/register" className="text-[16px] text-themeBlue">

@@ -17,7 +17,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [totalCancelOrder, settotalCancelOrder] = useState<number>(0);
 
-  const token = localStorage.getItem("accessToken")
+  const token = localStorage.getItem("accessToken");
   const header = {
     headers: {
       "Content-Type": "application/json",
@@ -28,25 +28,20 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (token || loggedIn) {
       axios
-        .post(`${process.env.BASE_URL}user/get-user`, { token }, header)
+        .get(
+          `${process.env.BASE_URL}auth`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((res) => {
           if (res.data.data) {
             const userinfo = res.data.data;
             setLoggedIn(true);
             setUser(userinfo);
             setLoading(false);
-  
-            // Set up a timer to automatically log out when the token expires.
-            if (token) {
-              const decodedToken: any = jwtDecode(token);
-              const expirationTime = decodedToken.exp * 1000; // Convert expiration time to milliseconds.
-              const currentTime = Date.now();
-  
-              const timeUntilExpiration = expirationTime - currentTime;
-              setTimeout(() => {
-                logout();
-              }, timeUntilExpiration);
-            }
           }
         })
         .catch((e) => {
@@ -56,7 +51,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       setLoading(false);
     }
-  }, [token, loggedIn,update]);
+  }, [token, loggedIn, update]);
 
   const logout = () => {
     localStorage.removeItem("accessToken");
@@ -85,7 +80,12 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setUser,
     header,
     loggedIn,
-    update, setUpdate,updateStatus,setUpdateStatus,totalCancelOrder, settotalCancelOrder
+    update,
+    setUpdate,
+    updateStatus,
+    setUpdateStatus,
+    totalCancelOrder,
+    settotalCancelOrder,
   };
 
   return (
@@ -94,4 +94,3 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AppProvider;
-
