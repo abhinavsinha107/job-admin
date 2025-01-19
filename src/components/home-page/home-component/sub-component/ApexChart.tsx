@@ -7,12 +7,15 @@ import useSellSummaries from "@/hooks/useSellSummaries";
 import ChartPreloader from "@/preloaders/ChartPreloader";
 const AreaCharts = () => {
   const { data, loading, error } = useSellSummaries() as any;
-  const { sellsReport, productQuantity, formattedDates } = data;
+  const {
+    sellsReport = [300, 450, 200, 700, 500],
+    productQuantity = [30, 45, 20, 70, 50],
+    formattedDates = ["1 Dec", "2 Dec", "3 Dec", "4 Dec", "5 Dec"],
+  } = data;
 
-  if (error) {
-    // Render an error message if there's an error
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   const options: ChartOptions = {
     series: [
@@ -58,11 +61,9 @@ const AreaCharts = () => {
   };
   return (
     <>
-  
       {loading ? (
         <>
           <ChartPreloader />
-          
         </>
       ) : (
         <>

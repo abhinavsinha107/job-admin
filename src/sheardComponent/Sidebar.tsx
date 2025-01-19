@@ -24,13 +24,10 @@ const Sidebar = () => {
             : "cashier-dashboard-sidebar"
         }`}
       >
-        <div
-          className=" cashier-menu-wrapper bg-white border-r border-b border-solid border-grayBorder py-6 px-7 maxLg:px-5
-        maxLg:py-6"
-        >
+        <div className="py-6 bg-white border-b border-r border-solid  cashier-menu-wrapper border-grayBorder px-7 maxLg:px-5 maxLg:py-6">
           <div>
-            <div className="cashier-header-profile relative pl-5 flex flex-wrap items-center maxMd:pr-0 mb-7">
-              <div className="cashier-header-profile-img w-12 maxSm:mr-0 md:mr-0 cursor-pointer og-profile-icon">
+            <div className="relative flex flex-wrap items-center pl-5 cashier-header-profile maxMd:pr-0 mb-7">
+              <div className="w-12 cursor-pointer cashier-header-profile-img maxSm:mr-0 md:mr-0 og-profile-icon">
                 <Link href="" className="rounded-[50%] overflow-hidden block">
                   <Image
                     src={user?.photo ? user?.photo : logo}

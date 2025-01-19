@@ -28,14 +28,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (token || loggedIn) {
       axios
-        .get(
-          `${process.env.BASE_URL}auth`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        .get(`${process.env.BASE_URL}auth`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           if (res.data.data) {
             const userinfo = res.data.data;

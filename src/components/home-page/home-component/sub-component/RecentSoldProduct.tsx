@@ -5,25 +5,42 @@ import React from "react";
 
 const RecentSoldProduct = () => {
   const { data, loading, error } = useSellSummaries() as any;
-  const { recentProduct } = data;
+  const {
+    recentProduct = [
+      {
+        orderDate: "12/30/24 3:45 PM",
+        price: 20,
+        totalCard: 3,
+        productName: "Product A",
+        categoryName: "Category A",
+      },
+      {
+        orderDate: "12/29/24 11:15 AM",
+        price: 15,
+        totalCard: 2,
+        productName: "Product B",
+        categoryName: "Category B",
+      },
+    ],
+  } = data;
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
+
   return (
     <>
       <div className="col-span-12">
         <div className="cashier-dashboard-transaction-area">
-          <div className="cashier-dashboard-transaction-wrapper p-7 pt-5 bg-white rounded-lg mb-5">
+          <div className="pt-5 mb-5 bg-white rounded-lg cashier-dashboard-transaction-wrapper p-7">
             <div className="cashier-dashboard-supplier-header flex flex-wrap items-center justify-between mb-6 m-0.5">
               <h5 className="text-[18px] text-bold font-bold maxSm:mb-2 text-heading">
                 Recent Sold Products
               </h5>
-              <span className="common-blue-badge maxSm:mb-2">List 5</span>
             </div>
             {recentProduct?.length ? (
               <>
@@ -54,7 +71,7 @@ const RecentSoldProduct = () => {
                         <div className="cashier-dashboard-transaction-dateR">
                           <span>
                             {" "}
-                            <CustomDateFormatter 
+                            <CustomDateFormatter
                               inputDate={sell.orderDate}
                             />{" "}
                           </span>
@@ -80,7 +97,7 @@ const RecentSoldProduct = () => {
               </>
             ) : (
               <>
-                <p className="text-center mt-5"> No Prodeuct Found </p>
+                <p className="mt-5 text-center"> No Prodeuct Found </p>
               </>
             )}
           </div>

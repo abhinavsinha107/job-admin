@@ -6,21 +6,37 @@ import React, { useEffect, useState } from "react";
 import userIcon from "../../../../../public/assets/img/user/user-1.png";
 import CustomDateFormatter from "@/hooks/CustomDateFormatter ";
 const RecentUser = () => {
-  const [recentUsers, setrecentUsers] = useState([]);
+  const [recentUsers, setrecentUsers] = useState([
+    {
+      name: "John Doe",
+      photo: null,
+      date: "2025-01-01T10:00:00Z",
+    },
+    {
+      name: "Jane Smith",
+      photo: null,
+      date: "2025-01-02T15:30:00Z",
+    },
+    {
+      name: "Alex Johnson",
+      photo: null,
+      date: "2025-01-03T12:45:00Z",
+    },
+  ]);
   useEffect(() => {
-    axios
-      .get(`${process.env.BASE_URL}user/recent-user`)
-      .then((res) => {
-        setrecentUsers(res.data);
-      })
-      .catch((e) => console.log(e));
+    // axios
+    //   .get(`${process.env.BASE_URL}user/recent-user`)
+    //   .then((res) => {
+    //     setrecentUsers(res.data);
+    //   })
+    //   .catch((e) => console.log(e));
   }, []);
 
   return (
     <>
       <div className="col-span-12 xl:col-span-12 lg:col-span-6 maxLg:hidden">
         <div className="cashier-dashboard-user-area">
-          <div className="cashier-dashboard-user-wrapper p-7 pt-5 bg-white rounded-lg mb-5">
+          <div className="pt-5 mb-5 bg-white rounded-lg cashier-dashboard-user-wrapper p-7">
             <div className="cashier-dashboard-user mb-6 m-0.5">
               <h5 className="text-[18px] text-heading font-bold">
                 Recent Users
@@ -31,9 +47,9 @@ const RecentUser = () => {
                 recentUsers.map((item: any, index: number) => (
                   <div
                     key={index}
-                    className="cashier-dashboard-user-list flex flex-wrap justify-between items-center mb-5"
+                    className="flex flex-wrap items-center justify-between mb-5 cashier-dashboard-user-list"
                   >
-                    <div className="cashier-dashboard-user-list-left flex flex-wrap items-center">
+                    <div className="flex flex-wrap items-center cashier-dashboard-user-list-left">
                       <div className="cashier-dashboard-user-list-left-img min-w-[60px] mr-4">
                         <Link href="">
                           <Image
@@ -67,7 +83,7 @@ const RecentUser = () => {
                 ))
               ) : (
                 <>
-                  <p className="text-center mt-5"> No User Found </p>
+                  <p className="mt-5 text-center"> No User Found </p>
                 </>
               )}
             </div>
